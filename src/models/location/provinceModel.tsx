@@ -33,17 +33,17 @@ export interface ProvinceModelType {
     doCreate: Effect;
     doUpdate: Effect;
     doDelete: Effect;
+    updateStatus: Effect;
     getUpdateAction: Effect;
-    // throwError: Effect;
   };
   reducers: {
     openModal: Reducer;
     closeModal: Reducer;
     prepareData: Reducer;
     setProvince: Reducer;
+    onCustomSlug: Reducer;
     doFilter: Reducer<string>;
     listLoading: Reducer<boolean>;
-    decrease: Reducer<number>;
   };
   subscriptions: {
     fetchAll: Subscription;
@@ -93,6 +93,16 @@ const ProvinceModel: ProvinceModelType = {
       const newState = { ...state, province: action.province };
       return newState!;
     },
+    onCustomSlug(state) {
+      // const 
+      // const newProvince = {...state.province, customizeSlug: state.province.customizeSlug!}
+      // console.log(newProvince)
+      // const newState = {
+      //   ...state,
+      //   // province: { ...state.province, customizeSlug: state.province.customizeSlug! },
+      // };
+      return state!;
+    },
     doFilter(state, action) {
       const newState = {
         ...state,
@@ -105,9 +115,6 @@ const ProvinceModel: ProvinceModelType = {
               ),
       };
       return newState!;
-    },
-    decrease(state) {
-      return state! - 1;
     },
   },
   subscriptions: {
@@ -136,10 +143,11 @@ const ProvinceModel: ProvinceModelType = {
         slugName: customizeSlug ? makeSlug(slugName) : makeSlug(name),
         status: 'ACTIVE',
       };
+
       if (!key) {
         yield put({ type: 'doCreate', payload: params });
       } else {
-        yield put({ type: 'doCreate', payload: params });
+        yield put({ type: 'doUpdate', payload: { ...params, key } });
       }
     },
     *doCreate({ payload }, { call, put }) {
@@ -168,19 +176,28 @@ const ProvinceModel: ProvinceModelType = {
     },
     *doDelete({ payload }, { call, put }) {
       const response = yield axios.delete(`${PATH_API}/${payload}`);
+
       yield put({ type: 'prepareData', provinceList: response.data });
     },
     *getUpdateAction({ payload }, { call, put }) {
-      // console.log(payload)
       yield put({ type: 'listLoading', loading: true });
+
       const response = yield axios.get(`${PATH_API}/${payload}`, {
         timeout: 5000,
       });
 
-      // yield put({ type: 'prepareData', provinceList: response.data });
       yield put({ type: 'setProvince', province: response.data });
       yield put({ type: 'openModal' });
       yield put({ type: 'listLoading', loading: false });
+    },
+    *updateStatus({ payload }, { call, put }) {
+      yield put({
+        type: 'doUpdate',
+        payload: {
+          ...payload,
+          status: payload.status === 'ACTIVE' ? 'HIDDEN' : 'ACTIVE',
+        },
+      });
     },
   },
 };

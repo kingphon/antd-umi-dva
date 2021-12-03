@@ -3,6 +3,7 @@ import { Checkbox, Form } from 'antd';
 import { connect, Dispatch } from 'dva';
 
 import FormInput from '../../../atoms/FormInput';
+import FormCheckBox from '../../../atoms/FormCheckBox';
 import ModalForm from '../../../molecules/ModalForm';
 
 import {
@@ -51,6 +52,7 @@ const ProvinceModal: FC<ProvinceModalProps> = ({ province, dispatch }) => {
         required={true}
         message="Please input province name"
       />
+      <FormCheckBox name="customizeSlug" checked={provinceItem.customizeSlug} label='Customize Slug' onClick={dispatch?.({ type: 'province/onCustomSlug' })}/>
       <Form.Item
         name="customizeSlug"
         valuePropName="checked"

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Select } from 'antd';
 import { connect, Dispatch } from 'dva';
 
@@ -12,7 +12,6 @@ const { Option } = Select;
 // import { ALL, ACTIVE, HIDDEN } from '../../../constants/status';
 
 interface FilterContentProps {
-  // province: ProvinceModelType;
   dispatch: Dispatch;
 }
 
@@ -31,7 +30,9 @@ const FilterContent: FC<FilterContentProps> = ({ dispatch }) => {
         <Select
           defaultValue="ALL"
           style={{ width: '14rem' }}
-          onChange={(value) => dispatch?.({type: 'province/doFilter', payload: value})}
+          onChange={(value) =>
+            dispatch?.({ type: 'province/doFilter', payload: value })
+          }
         >
           <Option value="ALL">ALL</Option>
           <Option value="ACTIVE">ACTIVE</Option>

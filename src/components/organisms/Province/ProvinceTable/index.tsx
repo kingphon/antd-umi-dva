@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Checkbox, Table } from 'antd';
 import {
   EditOutlined,
@@ -62,7 +62,14 @@ const ProvinceTable: FC<ProvinceTableProps> = ({ province, dispatch }) => {
       dataIndex: 'status',
       key: 'status',
       align: 'center',
-      render: (status) => <Checkbox checked={status === 'ACTIVE'} />,
+      render: (status, key) => (
+        <Checkbox
+          checked={status === 'ACTIVE'}
+          onClick={() =>
+            dispatch?.({ type: 'province/updateStatus', payload: key })
+          }
+        />
+      ),
     },
     {
       title: 'Audit',
