@@ -1,32 +1,27 @@
-import { FC } from 'react';
-import { connect, Dispatch } from 'dva';
+import { FC, useState } from 'react';
 
-import ProvinceTable from '../../../components/organisms/Province/ProvinceTable';
-import ProvinceModal from '../../../components/organisms/Province/ProvinceModal';
+import ProvinceTable from './components/ProvinceTable';
+import ProvinceModal from './components/ProvinceModal';
 import ContentHeader from '../../../components/organisms/ContentHeader';
 
-import { ProvinceModelType } from '../../../../models/location/provinceModel';
-
-interface ProvinceProps {
-  province: ProvinceModelType;
-  dispatch: Dispatch;
-}
-
-const ProvincePage: FC<ProvinceProps> = ({ province, dispatch }) => {
+const ProvincePage: FC = () => {
+  const [modalStatus, setModalStatus] = useState(false);
   return (
     <>
       <ContentHeader
         prefix="Location"
         name="Province"
-        onClick={() => dispatch?.({type: 'province/openModal'})}
-        createButtonLoading={province.createButtonLoading}
+        onClick={() => setModalStatus(true)}
       />
-      <ProvinceTable />
-      <ProvinceModal />
+      <ProvinceTable setModalStatus={setModalStatus} />
+      {modalStatus && (
+        <ProvinceModal
+          modalStatus={modalStatus}
+          setModalStatus={setModalStatus}
+        />
+      )}
     </>
   );
 };
 
-export default connect(({ province }: { province: ProvinceModelType }) => ({
-  province,
-}))(ProvincePage);
+export default ProvincePage;

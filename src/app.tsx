@@ -5,9 +5,7 @@ export const dva = {
       alert(err.message);
     },
     initialState: {
-      global: {
-        text: 'hi umi + dva!!!!',
-      },
+      
     },
   },
 };

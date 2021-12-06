@@ -1,18 +1,18 @@
-import React, { FC } from 'react'
-import { Form, Modal } from 'antd'
+import { FC } from 'react';
+import { Form, Modal } from 'antd';
 
 interface ModalProps {
-  title: string
-  isModalVisible: boolean
-  handleOk: any
-  handleCancel: any
-  form: any
-  labelAlign?: string
-  formName: string
-  labelCol?: number
-  wrapperCol?: number
-  autoComplete?: string
-  children: any
+  title: string;
+  isModalVisible: boolean;
+  handleOk: any;
+  handleCancel: any;
+  form: any;
+  labelAlign?: string;
+  formName: string;
+  labelCol?: number;
+  wrapperCol?: number;
+  autoComplete?: string;
+  children: any;
 }
 
 const ModalForm: FC<ModalProps> = ({
@@ -26,7 +26,7 @@ const ModalForm: FC<ModalProps> = ({
   labelCol = 8,
   wrapperCol = 16,
   autoComplete = 'off',
-  children
+  children,
 }) => {
   return (
     <Modal
@@ -36,7 +36,8 @@ const ModalForm: FC<ModalProps> = ({
       visible={isModalVisible}
       okButtonProps={{ htmlType: 'submit' }}
       onOk={handleOk}
-      onCancel={handleCancel}>
+      onCancel={handleCancel}
+    >
       <Form
         preserve={false}
         form={form}
@@ -44,11 +45,12 @@ const ModalForm: FC<ModalProps> = ({
         name={formName}
         labelCol={{ span: labelCol }}
         wrapperCol={{ span: wrapperCol }}
-        autoComplete={autoComplete}>
+        autoComplete={autoComplete}
+      >
         {children}
       </Form>
     </Modal>
-  )
-}
+  );
+};
 
-export default ModalForm
+export default ModalForm;

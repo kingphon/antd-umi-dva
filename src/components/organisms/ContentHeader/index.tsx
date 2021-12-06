@@ -1,29 +1,28 @@
-import { FC } from 'react'
-import { Button } from 'antd'
+import { FC } from 'react';
+import { Button } from 'antd';
+
+import styles from './styles.less'
 
 interface PathName {
-  prefix: string
-  name: string
-  onClick: any
-  createButtonLoading: boolean
+  prefix: string;
+  name: string;
+  onClick: any;
 }
 
-const ContentHeader: FC<PathName> = ({ prefix, name, onClick, createButtonLoading }) => {
+const ContentHeader: FC<PathName> = ({ prefix, name, onClick }) => {
   return (
-    <div style={{ background: 'white', display: 'flex', justifyContent: 'space-between', padding: '0.5rem 2rem', alignItems: 'center' }}>
+    <div className={styles.wrapper}>
       <div>
-        <span style={{ color: '#999' }}>{`${prefix} /`}</span>
-        <span style={{ cursor: 'pointer' }}> {name}</span>
+        <span className={styles.prefixFont}>{`${prefix} /`}</span>
+        <span className={styles.nameFont}> {name}</span>
       </div>
       <div>
-        <Button onClick={onClick} type="primary" 
-        loading={createButtonLoading}
-        >
+        <Button onClick={onClick} type="primary">
           Tạo mới
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContentHeader
+export default ContentHeader;

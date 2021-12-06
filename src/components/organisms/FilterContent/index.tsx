@@ -2,10 +2,9 @@ import { FC } from 'react';
 import { Select } from 'antd';
 import { connect, Dispatch } from 'dva';
 
-import {
-  ProvinceModelType,
-  Province,
-} from '../../../models/location/provinceModel';
+import { ProvinceModelType } from '../../../models/location/provinceModel';
+
+import styles from './styles.less';
 
 const { Option } = Select;
 
@@ -17,19 +16,12 @@ interface FilterContentProps {
 
 const FilterContent: FC<FilterContentProps> = ({ dispatch }) => {
   return (
-    <div
-      style={{
-        background: 'white',
-        margin: '1rem',
-        width: '16rem',
-        height: '6rem',
-      }}
-    >
-      <div style={{ padding: '1rem' }}>
-        <p style={{ marginBottom: '0.5rem' }}>STATUS</p>
+    <div className={styles.box}>
+      <div className={styles.wrapper}>
+        <p className={styles.text}>STATUS</p>
         <Select
           defaultValue="ALL"
-          style={{ width: '14rem' }}
+          className={styles.select}
           onChange={(value) =>
             dispatch?.({ type: 'province/doFilter', payload: value })
           }

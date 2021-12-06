@@ -7,9 +7,6 @@ interface InputProps {
   wrapperCol?: any;
   checked: any;
   onClick: any;
-  required?: boolean;
-  message?: string;
-  disabled?: boolean;
 }
 
 const FormInput: FC<InputProps> = ({

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Checkbox, Table } from 'antd';
 import {
   EditOutlined,
@@ -7,16 +7,28 @@ import {
 } from '@ant-design/icons';
 import { connect, Dispatch } from 'dva';
 
-import { formatDateTime } from '../../../../commons/utils';
-import FilterContent from '../../FilterContent';
-import { ProvinceModelType } from '../../../../models/location/provinceModel';
+import { formatDateTime } from '../../../../../commons/utils';
+import FilterContent from '../../../../../components/organisms/FilterContent';
+import { ProvinceModelType } from '../../../../../models/location/provinceModel';
+import { Loading } from '@/.umi/plugin-dva/connect';
 
 interface ProvinceTableProps {
   province: ProvinceModelType;
   dispatch: Dispatch;
+  loading: Loading;
+  setModalStatus: any;
 }
 
-const ProvinceTable: FC<ProvinceTableProps> = ({ province, dispatch }) => {
+const ProvinceTable: FC<ProvinceTableProps> = ({
+  province,
+  dispatch,
+  loading,
+  setModalStatus,
+}) => {
+  useEffect(() => {
+    dispatch?.({ type: 'province/getData' });
+  }, []);
+
   const columns = [
     {
       title: '#',
@@ -84,9 +96,10 @@ const ProvinceTable: FC<ProvinceTableProps> = ({ province, dispatch }) => {
         <div>
           <EditOutlined
             style={{ cursor: 'pointer', padding: '0.5rem' }}
-            onClick={() =>
-              dispatch?.({ type: 'province/getUpdateAction', payload: key })
-            }
+            onClick={() => {
+              setModalStatus(true);
+              dispatch?.({ type: 'province/getUpdateAction', payload: key });
+            }}
           />
           <DeleteOutlined
             style={{ cursor: 'pointer', padding: '0.5rem' }}
@@ -106,12 +119,21 @@ const ProvinceTable: FC<ProvinceTableProps> = ({ province, dispatch }) => {
         style={{ width: '100%', margin: '1rem' }}
         columns={columns}
         dataSource={province.dataFilters}
-        loading={province.loading}
+        loading={loading.global}
       />
     </div>
   );
 };
 
-export default connect(({ province }: { province: ProvinceModelType }) => ({
-  province,
-}))(ProvinceTable);
+export default connect(
+  ({
+    province,
+    loading,
+  }: {
+    province: ProvinceModelType;
+    loading: Loading;
+  }) => ({
+    province,
+    loading,
+  }),
+)(ProvinceTable);

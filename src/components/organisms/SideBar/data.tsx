@@ -1,18 +1,17 @@
-import React from 'react'
-import { GroupOutlined, HomeOutlined, FileOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'
+import { GroupOutlined, HomeOutlined } from '@ant-design/icons';
 
 interface SubItem {
-  key: string
-  title: string
-  url: string
+  key: string;
+  title: string;
+  url: string;
 }
 
 interface SideMenu {
-  key: string
-  title: string
-  icon: any
-  url?: string
-  subItem?: Array<SubItem>
+  key: string;
+  title: string;
+  icon: any;
+  url?: string;
+  subItem?: Array<SubItem>;
 }
 
 export const menu: Array<SideMenu> = [
@@ -20,7 +19,7 @@ export const menu: Array<SideMenu> = [
     key: '1',
     title: 'Home',
     icon: <HomeOutlined />,
-    url: '/'
+    url: '/',
   },
   {
     key: 'location',
@@ -30,24 +29,24 @@ export const menu: Array<SideMenu> = [
       {
         key: '3',
         title: 'Province',
-        url: '/location/province'
+        url: '/location/province',
       },
       {
         key: '4',
         title: 'District',
-        url: '/location/district'
+        url: '/location/district',
       },
       {
         key: '5',
         title: 'Alex',
-        url: '/'
-      }
-    ]
+        url: '/',
+      },
+    ],
   },
   {
     key: '6',
     title: 'Test',
     icon: <HomeOutlined />,
-    url: '/test'
+    url: '/test',
   },
-]
+];

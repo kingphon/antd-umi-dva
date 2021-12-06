@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
 import { Layout, Menu } from 'antd';
 import { Link } from 'umi';
 
 import Logo from '../../../../public/Toi Dev-logos.jpeg';
 
 import { menu } from './data';
-import styles from './sideBar.less';
+import styles from './styles.less';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -20,18 +20,13 @@ const SideBar: FC = () => {
         {menu.map((item) => {
           return (
             (!item.subItem && (
-              <Menu.Item
-                key={item.key}
-                icon={item.icon}
-              >
+              <Menu.Item key={item.key} icon={item.icon}>
                 <Link to={item.url}>{item.title}</Link>
               </Menu.Item>
             )) || (
               <SubMenu key={item.key} icon={item.icon} title={item.title}>
                 {item.subItem.map((sItem) => (
-                  <Menu.Item
-                    key={sItem.key}
-                  >
+                  <Menu.Item key={sItem.key}>
                     <Link to={sItem.url}>{sItem.title}</Link>
                   </Menu.Item>
                 ))}
